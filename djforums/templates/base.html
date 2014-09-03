@@ -12,9 +12,9 @@
 	<script src="/static/js/jquery.min.js"></script>
 	<script src="/static/js/jquery.Jcrop.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/static/css/uliweb.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/shared.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/djforums.css">
+    	<link rel="stylesheet" type="text/css" href="/static/css/uliweb.css">
+    	<link rel="stylesheet" type="text/css" href="/static/css/shared.css">
+   	 <link rel="stylesheet" type="text/css" href="/static/css/djforums.css">
 
 	<!--tinymce-->
 	<script src="http://tinymce.cachefly.net/4.1/tinymce.min.js"></script>
@@ -145,8 +145,124 @@
 {% block content1%}{%endblock%}
 
 {% block content2%}{%endblock%}
+<!--登录-->
 
+<div class="backgroundbox1" style="display:none">
+</div>
+
+<div class="popbox1" style="display:none; text-align:right;">
+	<a class="close" id="close1">X</a>
+	<div class="control">
+		<input id="newcate1" name="username" type="text" value=""placeholder="用户名"></input>
+		<input id="newcate2" name="password" type="password" value=""placeholder="密码"></input>
+		<p class"help help-block"></p>
+		<button id="sendcate1" class="btn btn-primary">登录</button>
+	</div>
+</div>
+
+<!--登录结束-->
+
+<!--注册-->
+
+<div class="backgroundbox2" style="display:none">
+</div>
+
+<div class="popbox2" style="display:none">
+	<a class="close" id="close2">X</a>
+	<div class="control">
+    	<input id="newcate3" name="username" type="text" value=""placeholder="请输入用户名"></input>
+		<input id="newcate4" name="password1" type="password" value=""placeholder="请输入密码"></input>
+		<input id="newcate5" name="password2" type="password" value=""placeholder="请再次输入密码"></input>
+		<p class"help help-block"></p>
+		<button id="sendcate2" class="btn btn-primary" style="margin-right:-149px;">注册</button>
+	</div>
+</div>
+</div>
+
+<!--注册结束-->
 {% block content3%}{%endblock%}
+
+<script>
+$(document).ready(function(){
+	$("#sig").add("#sig1").click(function(){
+		$(".backgroundbox1").show();
+		$(".popbox1").show();
+	});
+	$("#sendcate1").click(function(){
+		var newcate1 = $("#newcate1").val();
+		var newcate2 = $("#newcate2").val();
+		console.log(newcate1);
+		console.log(newcate2);
+		$(".backgroundbox1").hide();
+		$(".popbox1").hide();
+		
+		$.ajax({
+				type:'POST',
+				url:'/accounts/login/',
+				dataType:'html',
+				data:{username: newcate1, password: newcate2, csrfmiddlewaretoken: '{{csrf_token}}',}
+				})
+				.done(function(msg){
+					location.reload();
+					
+				})
+				.error(function(msg){
+					location.reload();
+					
+				});
+
+	});
+	$("#close1").click(function(){
+		$(".backgroundbox1").hide();
+		$(".popbox1").hide();
+	});
+});
+
+$(document).ready(function(){
+	$("#reg").add("#reg1").click(function(){
+		$(".backgroundbox2").show();
+		$(".popbox2").show();
+	});
+	$("#sendcate2").click(function(){
+		var newcate3 = $("#newcate3").val();
+		var newcate4 = $("#newcate4").val();
+		var newcate5 = $("#newcate5").val();
+		console.log(newcate3);
+		console.log(newcate4);
+		console.log(newcate5);
+		$(".backgroundbox2").hide();
+		$(".popbox2").hide();
+		
+		$.ajax({
+				type:'POST',
+				url:'/accounts/register/',
+				dataType:'html',
+				data:{username: newcate3, password1: newcate4, password2: newcate5, csrfmiddlewaretoken: '{{csrf_token}}',}
+				})
+
+				.done(function(msg){
+
+					window.location.href="/useradmin";
+					window.location.href="/"
+					//location.reload('/useramdin');
+					
+				})
+				.error(function(msg){
+
+					window.location.href="/useradmin";
+					window.location.href="/"
+					//location.reload('/useramdin');
+					
+				});
+
+	});
+	$("#close2").click(function(){
+		$(".backgroundbox2").hide();
+		$(".popbox2").hide();
+	});
+});
+</script>
+
 </body>
 
 <!--结尾结束-->
@@ -155,9 +271,9 @@
             <div class="inner">
                 <div class="sep10"></div>
                     <div class="fr">
-                        <a href="https://www.digitalocean.com/?refcode=1b51f1a7651d" target="_blank"><img src="/static/img/do.png" width="64" border="0" alt="DigitalOcean"></a>
+                        <a href="/" target="_self"><img src="/static/img/do.png" width="64" border="0" alt="DigitalOcean"></a>
                     </div>
-                    <strong><a href="/about" class="dark" target="_self">关于</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/faq" class="dark" target="_self">FAQ</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/mission" class="dark" target="_self">我们的愿景</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/ip" class="dark" target="_self">IP 查询</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="https://workspace.v2ex.com/" class="dark" target="_blank">工作空间</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/advertise" class="dark" target="_self">广告投放</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="http://livid.v2ex.com/" class="dark" target="_blank">博客</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/start" class="dark" target="_blank">上网首页</a> &nbsp; <span class="snow">·</span> &nbsp; 6 人在线</strong> &nbsp; <span class="fade">最高记录 60</span> &nbsp; <span class="snow">·</span> &nbsp; <a href="/select/language"><img src="/static/img/lang_zhcn_32.png" align="absmiddle" border="0" width="20" alt=""></a>
+                    <strong><a href="/" class="dark" target="_self">关于</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/" class="dark" target="_self">FAQ</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/" class="dark" target="_self">愿景</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/" class="dark" target="_self">查询</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/" class="dark" target="_self">空间</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/" class="dark" target="_self">投放</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/" class="dark" target="_self">博客</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/" class="dark" target="_self">首页</a> &nbsp; <span class="snow">·</span> &nbsp; 6 人在线</strong> &nbsp; <span class="fade">最高记录 60</span> &nbsp; <span class="snow">·</span> &nbsp; <a href="/"><img src="/static/img/lang_zhcn_32.png" align="absmiddle" border="0" width="20" alt=""></a>
                     <div class="sep20"></div>
                     Lovingly made by <b>Zhuhy</b>
                     <div class="sep20"></div>
